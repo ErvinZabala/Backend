@@ -42,13 +42,14 @@ router.post('/login', async (req, res) => {
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(400).json({ msg: 'Credenciales inválidas' });
-        }
+        console.log('¿La contraseña coincide?:', isMatch);
+
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
             expiresIn: '1h'
         });
+
+        
 
         res.json({ token });
     } catch (error) {
